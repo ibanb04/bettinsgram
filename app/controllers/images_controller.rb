@@ -1,5 +1,5 @@
 class ImagesController < ApplicationController
-
+	before_action :set_image, only: [:edit, :update, :show, :destroy]
 	def new
 		@image = Image.new
 	end
@@ -16,30 +16,29 @@ class ImagesController < ApplicationController
 		redirect_to @image
 	end
 	
-	def show
-		@image = Image.find params[:id]	
+	def show	
 	end
 	
 	def edit
-		@image = Image.find params[:id]
 	end
 
 	def update
-		@image = Image.find params[:id]
 		@image.update image_params
 		redirect_to @image
 	end
 	
 	def destroy
-		@image = Image.find params[:id]
 		@image.destroy	
 		redirect_to images_path	
 	end
 	
-	
 	private
 	def image_params
 		params.require(:image).permit(:description)
+	end
+	
+	def set_image
+		@image = Image.find params[:id]
 	end
 	
 end
